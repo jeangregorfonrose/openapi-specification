@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: Coffe Shop Api
+  description: This is an api that handles different interation between customers and our coffe shop.
+  version: 1.0.0
+servers:
+  - url: https://api.coffeeshop.com/v1
+paths:
+  /orders:
+    post:
+      summary: Submit an order for a coffee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_name:
+                  type: string
+                  description: The customer's name submitting the order
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: Name of the product or item
+                      quantity:
+                        type: integer
+                        description: The quantity of the item in the cart
+                      size:
+                        type: string
+                        description: Size of the item if applicable
+      responses:
+        '200':
+          description: Order submitted successfully
+        '400':
+          description: Invalid input data
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete an order
+      responses:
+        '200':
+          description: Order deleted successfully
+        '202':
+          description: Order cancelation submitted, waiting for shop confirmation
+        '500':
+          description: Internal server error
+
+  /items:
+    get:
+      summary: Get the items that being sold at the coffee Shop
+      responses:
+        '200':
+          description: Items were retrieved successfully
+        '500':
+          description: Internal server error
